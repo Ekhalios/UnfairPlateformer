@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public Vector2 speed = new Vector2(5, 5);
     public Rigidbody2D rb;
+    public float gravityScale = 2;
+    public float fallingGravityScale = 7.5f;
+    private bool onGround = true;
 
     void Update()
     {
@@ -15,10 +18,23 @@ public class PlayerMovement : MonoBehaviour
         movement *= Time.deltaTime;
         transform.Translate(movement);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (rb.velocity.y == 0)
+        {
+            onGround = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
             rb.AddForce(Vector2.up * speed.y, ForceMode2D.Impulse);
+            onGround = false;
+        }
+        if (rb.velocity.y >= 0)
+        {
+            rb.gravityScale = gravityScale;
+        }
+        else if (rb.velocity.y < 0)
+        {
+            rb.gravityScale = fallingGravityScale;
         }
     }
-    
+
 }

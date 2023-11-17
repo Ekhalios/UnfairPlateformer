@@ -38,12 +38,12 @@ public class MapCreator : MonoBehaviour
                 }
             }
         }
-        array[8, groundLevel] = blocType.FAKEGROUND;
-        array[9, groundLevel] = blocType.FAKEGROUND;
-        array[10, groundLevel + 1] = blocType.SPIKE;
-        array[11, groundLevel + 1] = blocType.SPIKE;
-
-
+        array[18, groundLevel] = blocType.FAKEGROUND;
+        array[19, groundLevel] = blocType.FAKEGROUND;
+        array[20, groundLevel + 1] = blocType.SPIKE;
+        array[21, groundLevel + 1] = blocType.SPIKE;
+        array[22, groundLevel] = blocType.FAKEGROUND;
+        array[23, groundLevel] = blocType.FAKEGROUND;
 
         for (int x = 0; x < 100; x++)
         {
@@ -67,6 +67,6 @@ public class MapCreator : MonoBehaviour
                 }
             }
         }
-        player.transform.position = new Vector2(50, (groundLevel + 1));
+        player.transform.position = new Vector2(15, (groundLevel + 1));
     }
 }

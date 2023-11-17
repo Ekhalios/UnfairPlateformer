@@ -1,5 +1,6 @@
 # Le-Jeu-De-Leandre
-Project Hub
 
-## Objectif
-Le but est de créer un jeu de plateformes avec de nombreux pièges cachés ou non. Ce jeu possedera un éditeur de map afin de créer se spropres maps et de s'affronetr entre amis.
+## Project Hub
+
+### Objectif
+Le projet "Le-Jeu-De-Leandre" vise à créer un jeu de plateformes offrant une expérience immersive avec divers pièges, qu'ils soient visibles ou dissimulés. L'une des fonctionnalités principales sera un éditeur de cartes permettant aux joueurs de concevoir leurs propres niveaux et de les partager pour des défis entre amis.

@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class FakeGround : MonoBehaviour
 {
-    public Rigidbody2D rb;
     public float fallingGravityScale;
+    private bool falling = false;
+
+    void Update()
+    {
+        if (transform.position.y < -100)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player" && falling == false)
         {
+            Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
             rb.gravityScale = fallingGravityScale;
+            falling = true;
         }
     }
 }

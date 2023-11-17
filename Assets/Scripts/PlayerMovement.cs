@@ -9,6 +9,13 @@ public class PlayerMovement : MonoBehaviour
     public float gravityScale = 2;
     public float fallingGravityScale = 7.5f;
     private bool onGround = true;
+    private SpriteRenderer spriteRenderer;
+    private bool reverse = false;
+
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
@@ -34,6 +41,16 @@ public class PlayerMovement : MonoBehaviour
         else if (rb.velocity.y < 0)
         {
             rb.gravityScale = fallingGravityScale;
+        }
+        if (inputX > 0 && !reverse)
+        {
+            reverse = !reverse;
+            spriteRenderer.flipX = true;
+        }
+        if (inputX < 0 && reverse)
+        {
+            reverse = !reverse;
+            spriteRenderer.flipX = false;
         }
     }
 

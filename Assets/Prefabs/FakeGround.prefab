@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2985493936769646959}
   m_Layer: 0
   m_Name: FakeGround
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,5 +143,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6241fa230f927e2478c99a2f73a04949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   fallingGravityScale: 10

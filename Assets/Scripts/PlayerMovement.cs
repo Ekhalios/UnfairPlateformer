@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private bool onGround = true;
     private SpriteRenderer spriteRenderer;
     private bool reverse = false;
+    public MapCreator mapCreator;
 
     void Start()
     {
@@ -20,7 +21,15 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float inputX = Input.GetAxis("Horizontal");
+        float inputY= Input.GetAxis("Vertical");
 
+        if (mapCreator.getEditorMode())
+        {
+            Vector3 movementEditor = new Vector3(speed.x * inputX, speed.x * inputY, 0);
+            movementEditor *= Time.deltaTime;
+            transform.Translate(movementEditor);
+            return;
+        }
         Vector3 movement = new Vector3(speed.x * inputX, 0, 0);
         movement *= Time.deltaTime;
         transform.Translate(movement);
@@ -52,6 +61,12 @@ public class PlayerMovement : MonoBehaviour
             reverse = !reverse;
             spriteRenderer.flipX = false;
         }
+    }
+
+    public void Editor()
+    {
+        spriteRenderer.enabled = !spriteRenderer.enabled;
+        rb.isKinematic = !rb.isKinematic;
     }
 
 }

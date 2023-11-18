@@ -19,12 +19,16 @@ public class MapCreator : MonoBehaviour
     public GameObject prefabGroundBot;
     public GameObject prefabFakeGround;
     public GameObject prefabSpike;
-    public bool editorMode = true;
+    public RectTransform panelRectTransform;
 
+    private bool editorMode = false;
+    private bool destroyMode = false;
     private int groundLevel = 0;
+    private GameObject selectedPrefab;
 
     void Start()
     {
+        selectedPrefab = prefabGroundTop;
         for (int x = 0; x < 100; x++)
         {
             for (int y = 0; y < 15; y++)
@@ -79,10 +83,68 @@ public class MapCreator : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && editorMode)
         {
+            if (destroyMode)
+            {
+                Vector2 clicPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                Collider2D hitCollider = Physics2D.OverlapPoint(clicPosition);
+
+                if (hitCollider != null)
+                {
+                    GameObject objetTouche = hitCollider.gameObject;
+                    if (objetTouche.tag == ("Destroyable") || objetTouche.tag == ("killPlayer"))
+                    {
+                        Destroy(objetTouche);
+                    }
+                }
+                return;
+            }
+            if (RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Input.mousePosition))
+            {
+                return;
+            }
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log(mousePos.x + ", " + mousePos.y);
             Debug.Log((int)mousePos.x + ", " + (int)mousePos.y);
-            Instantiate(prefabGroundTop, new Vector3((int)(mousePos.x + 0.5), (int)(mousePos.y + 0.5), 0), Quaternion.identity);
+            int posX = 0; 
+            int posY = 0;
+            if (mousePos.x >= 0)
+            {
+                posX = (int)(mousePos.x + 0.5);
+            } else
+            {
+                posX = (int)(mousePos.x - 0.5);
+            }
+            if (mousePos.y >= 0)
+            {
+                posY = (int)(mousePos.y + 0.5);
+            }
+            else
+            {
+                posY = (int)(mousePos.y - 0.5);
+            }
+            Instantiate(selectedPrefab, new Vector3(posX, posY, 0), Quaternion.identity);
         }
+    }
+
+    public void switchEditor()
+    {
+        editorMode = !editorMode;
+    }
+
+    public bool getEditorMode()
+    {
+        return editorMode;
+    }
+
+    public void switchDestroyMode()
+    {
+        destroyMode = true;
+    }
+
+    public void switchPrefab(GameObject Prefab)
+    {
+        destroyMode = false;
+        selectedPrefab = Prefab;
     }
 } 

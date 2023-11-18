@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Vector2 speed = new Vector2(5, 5);
+    public Vector2 initialPosition = new Vector2(0, 1);
     public Rigidbody2D rb;
     public float gravityScale = 2;
     public float fallingGravityScale = 7.5f;
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        switchToInitialPos();
     }
 
     void Update()
@@ -67,6 +69,11 @@ public class PlayerMovement : MonoBehaviour
     {
         spriteRenderer.enabled = !spriteRenderer.enabled;
         rb.isKinematic = !rb.isKinematic;
+    }
+
+    public void switchToInitialPos()
+    {
+        transform.position = initialPosition;
     }
 
 }

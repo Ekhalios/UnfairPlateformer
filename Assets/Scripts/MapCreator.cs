@@ -103,6 +103,18 @@ public class MapCreator : MonoBehaviour
             {
                 return;
             }
+            Vector2 clicPosition1 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Collider2D hitCollider1 = Physics2D.OverlapPoint(clicPosition1);
+
+            if (hitCollider1 != null)
+            {
+                GameObject objetTouche1 = hitCollider1.gameObject;
+                if (objetTouche1.tag == ("Destroyable") || objetTouche1.tag == ("killPlayer"))
+                {
+                    Destroy(objetTouche1);
+                }
+            }
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log(mousePos.x + ", " + mousePos.y);
             Debug.Log((int)mousePos.x + ", " + (int)mousePos.y);
@@ -130,10 +142,12 @@ public class MapCreator : MonoBehaviour
     public void switchEditor()
     {
         editorMode = !editorMode;
+        Debug.Log("Switch to:" + editorMode);
     }
 
     public bool getEditorMode()
     {
+        Debug.Log("Return" + editorMode);
         return editorMode;
     }
 

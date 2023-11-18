@@ -144,3 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallingGravityScale: 10
+  editorModeSpite: {fileID: 21300000, guid: 1f87b920bd42fad44b8749b7336b6e31, type: 3}
+  gameModeSprite: {fileID: 21300000, guid: 48b1535bc3872ed47a692dc80324417f, type: 3}
+  mapCreator: {fileID: 7302700884475185862, guid: c33b842cdbc716e4f937aab1a1bd5261, type: 3}

@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
+    public MapCreator mapCreator;
+    public PlayerMovement playerMovement;
+
     void Update()
     {
         if (transform.position.y < -100)
         {
-            Debug.Log("PLAYER DEATH");
+            mapCreator.drawMap();
+            playerMovement.switchToInitialPos();
         }
     }
 
@@ -16,7 +20,8 @@ public class PlayerDeath : MonoBehaviour
     {
         if (col.gameObject.tag == "killPlayer")
         {
-            Debug.Log("PLAYER DEATH");
+            mapCreator.drawMap();
+            playerMovement.switchToInitialPos();
         }
     }
 }

@@ -25,10 +25,12 @@ public class MapCreator : MonoBehaviour
     private bool destroyMode = false;
     private int groundLevel = 0;
     private GameObject selectedPrefab;
+    private blocType selectedPrefabType;
 
     void Start()
     {
         selectedPrefab = prefabGroundTop;
+        selectedPrefabType = blocType.GROUNDTOP;
         for (int x = 0; x < 100; x++)
         {
             for (int y = 0; y < 15; y++)
@@ -76,7 +78,6 @@ public class MapCreator : MonoBehaviour
                 }
             }
         }
-        player.transform.position = new Vector2(15, (groundLevel + 1));
     }
 
     void Update()
@@ -135,6 +136,8 @@ public class MapCreator : MonoBehaviour
             {
                 posY = (int)(mousePos.y - 0.5);
             }
+            if (posX < 0 || posY < 0) { return; }
+            array[posX, posY] = selectedPrefabType;
             Instantiate(selectedPrefab, new Vector3(posX, posY, 0), Quaternion.identity);
         }
     }
@@ -142,12 +145,10 @@ public class MapCreator : MonoBehaviour
     public void switchEditor()
     {
         editorMode = !editorMode;
-        Debug.Log("Switch to:" + editorMode);
     }
 
     public bool getEditorMode()
     {
-        Debug.Log("Return" + editorMode);
         return editorMode;
     }
 
@@ -156,9 +157,65 @@ public class MapCreator : MonoBehaviour
         destroyMode = true;
     }
 
-    public void switchPrefab(GameObject Prefab)
+    public void switchPrefab(GameObject prefab)
     {
         destroyMode = false;
-        selectedPrefab = Prefab;
+        selectedPrefab = prefab;
+        selectedPrefabType = GetBlocTypeForPrefab(prefab);
+    }
+
+    private blocType GetBlocTypeForPrefab(GameObject prefab)
+    {
+        if (prefab == prefabGroundTop)
+        {
+            return blocType.GROUNDTOP;
+        }
+        else if (prefab == prefabFakeGround)
+        {
+            return blocType.FAKEGROUND;
+        }
+        else if (prefab == prefabSpike)
+        {
+            return blocType.SPIKE;
+        }
+        else if (prefab == prefabGroundBot)
+        {
+            return blocType.GROUNDBOT;
+        }
+        else
+        {
+            return blocType.GROUNDTOP;
+        }
+    }
+    
+    public void drawMap()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int x = 0; x < 100; x++)
+        {
+            for (int y = 0; y < 15; y++)
+            {
+                if (array[x, y] == blocType.GROUNDTOP)
+                {
+                    Instantiate(prefabGroundTop, new Vector3(x, y, 0), Quaternion.identity);
+                }
+                if (array[x, y] == blocType.GROUNDBOT)
+                {
+                    Instantiate(prefabGroundBot, new Vector3(x, y, 0), Quaternion.identity);
+                }
+                if (array[x, y] == blocType.FAKEGROUND)
+                {
+                    Instantiate(prefabFakeGround, new Vector3(x, y, 0), Quaternion.identity);
+                }
+                if (array[x, y] == blocType.SPIKE)
+                {
+                    Instantiate(prefabSpike, new Vector3(x, y, 0), Quaternion.identity);
+                }
+            }
+        }
     }
 } 

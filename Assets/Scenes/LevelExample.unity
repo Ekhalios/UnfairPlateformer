@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2200595107146018859, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4216946645616696435, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
       propertyPath: m_Size.x
       value: 0.6951635
@@ -205,6 +209,10 @@ PrefabInstance:
     - target: {fileID: 4216946645616696435, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
       propertyPath: m_Offset.y
       value: -0.018844664
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959463591392432410, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7692183135804251182, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
       propertyPath: m_LocalPosition.x

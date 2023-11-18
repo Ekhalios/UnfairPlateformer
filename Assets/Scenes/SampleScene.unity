@@ -157,6 +157,7 @@ MonoBehaviour:
   prefabGroundBot: {fileID: 6568804954021142687, guid: e1a11cf8e2d325e44a27c12b6b70680c, type: 3}
   prefabFakeGround: {fileID: 6568804954021142687, guid: 1add6cc11a183b64f8170838315fe4f6, type: 3}
   prefabSpike: {fileID: 2628177810514415033, guid: 7b5a45aa6fdcaa042bbaea92d50ffd0a, type: 3}
+  editorMode: 1
 --- !u!4 &701118303
 Transform:
   m_ObjectHideFlags: 0
@@ -188,6 +189,22 @@ PrefabInstance:
     - target: {fileID: 2200595107146018859, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216946645616696435, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
+      propertyPath: m_Size.x
+      value: 0.6951635
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216946645616696435, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9623107
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216946645616696435, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.12581402
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216946645616696435, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.018844664
       objectReference: {fileID: 0}
     - target: {fileID: 7692183135804251182, guid: 338d7d25d81d62c488c6a693256d6b20, type: 3}
       propertyPath: m_LocalPosition.x

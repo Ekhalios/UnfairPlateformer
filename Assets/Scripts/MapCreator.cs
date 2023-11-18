@@ -19,6 +19,7 @@ public class MapCreator : MonoBehaviour
     public GameObject prefabGroundBot;
     public GameObject prefabFakeGround;
     public GameObject prefabSpike;
+    public bool editorMode = true;
 
     private int groundLevel = 0;
 
@@ -44,6 +45,10 @@ public class MapCreator : MonoBehaviour
         array[21, groundLevel + 1] = blocType.SPIKE;
         array[22, groundLevel] = blocType.FAKEGROUND;
         array[23, groundLevel] = blocType.FAKEGROUND;
+        array[24, groundLevel + 2] = blocType.GROUNDTOP;
+        array[25, groundLevel + 2] = blocType.GROUNDTOP;
+        array[27, groundLevel + 1] = blocType.SPIKE;
+
 
         for (int x = 0; x < 100; x++)
         {
@@ -69,4 +74,15 @@ public class MapCreator : MonoBehaviour
         }
         player.transform.position = new Vector2(15, (groundLevel + 1));
     }
-}
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && editorMode)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log(mousePos.x + ", " + mousePos.y);
+            Debug.Log((int)mousePos.x + ", " + (int)mousePos.y);
+            Instantiate(prefabGroundTop, new Vector3((int)(mousePos.x + 0.5), (int)(mousePos.y + 0.5), 0), Quaternion.identity);
+        }
+    }
+} 

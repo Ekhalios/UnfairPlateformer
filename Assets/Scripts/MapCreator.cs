@@ -56,28 +56,7 @@ public class MapCreator : MonoBehaviour
         array[27, groundLevel + 1] = blocType.SPIKE;
 
 
-        for (int x = 0; x < 100; x++)
-        {
-            for (int y = 0; y < 15; y++)
-            {
-                if (array[x, y] == blocType.GROUNDTOP)
-                {
-                    Instantiate(prefabGroundTop, new Vector3(x, y, 0), Quaternion.identity);
-                }
-                if (array[x, y] == blocType.GROUNDBOT)
-                {
-                    Instantiate(prefabGroundBot, new Vector3(x, y, 0), Quaternion.identity);
-                }
-                if (array[x, y] == blocType.FAKEGROUND)
-                {
-                    Instantiate(prefabFakeGround, new Vector3(x, y, 0), Quaternion.identity);
-                }
-                if (array[x, y] == blocType.SPIKE)
-                {
-                    Instantiate(prefabSpike, new Vector3(x, y, 0), Quaternion.identity);
-                }
-            }
-        }
+        drawMap();
     }
 
     void Update()
@@ -96,6 +75,26 @@ public class MapCreator : MonoBehaviour
                     if (objetTouche.tag == ("Destroyable") || objetTouche.tag == ("killPlayer"))
                     {
                         Destroy(objetTouche);
+                        int posX1 = 0;
+                        int posY1 = 0;
+                        if (clicPosition.x >= 0)
+                        {
+                            posX1 = (int)(clicPosition.x + 0.5);
+                        }
+                        else
+                        {
+                            posX1 = (int)(clicPosition.x - 0.5);
+                        }
+                        if (clicPosition.y >= 0)
+                        {
+                            posY1 = (int)(clicPosition.y + 0.5);
+                        }
+                        else
+                        {
+                            posY1 = (int)(clicPosition.y - 0.5);
+                        }
+                        if (posX1 < 0 || posY1 < 0) { return; }
+                        array[posX1, posY1] = blocType.VOID;
                     }
                 }
                 return;
@@ -103,7 +102,7 @@ public class MapCreator : MonoBehaviour
             if (RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Input.mousePosition))
             {
                 return;
-            }
+            }/*
             Vector2 clicPosition1 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             Collider2D hitCollider1 = Physics2D.OverlapPoint(clicPosition1);
@@ -115,7 +114,7 @@ public class MapCreator : MonoBehaviour
                 {
                     Destroy(objetTouche1);
                 }
-            }
+            }*/
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log(mousePos.x + ", " + mousePos.y);
             Debug.Log((int)mousePos.x + ", " + (int)mousePos.y);
@@ -190,9 +189,15 @@ public class MapCreator : MonoBehaviour
     
     public void drawMap()
     {
-        foreach (Transform child in transform)
+        GameObject[] destroyable = GameObject.FindGameObjectsWithTag("Destroyable");
+        foreach (GameObject obj in destroyable)
         {
-            Destroy(child.gameObject);
+                Destroy(obj);
+        }
+        GameObject[] KillPlayers = GameObject.FindGameObjectsWithTag("killPlayer");
+        foreach (GameObject obj in KillPlayers)
+        {
+            Destroy(obj);
         }
 
         for (int x = 0; x < 100; x++)

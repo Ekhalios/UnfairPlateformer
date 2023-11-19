@@ -9,7 +9,7 @@ public class PlayerDeath : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y < -100)
+        if (transform.position.y < -50)
         {
             mapCreator.drawMap();
             playerMovement.switchToInitialPos();

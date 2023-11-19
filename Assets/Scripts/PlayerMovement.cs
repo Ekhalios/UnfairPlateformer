@@ -23,11 +23,14 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float inputX = Input.GetAxis("Horizontal");
-        float inputY= Input.GetAxis("Vertical");
 
         if (mapCreator.getEditorMode())
         {
-            Vector3 movementEditor = new Vector3(speed.x * inputX, speed.x * inputY, 0);
+            if (transform.position.x <= 8.5f && inputX < 0)
+            {
+                return;
+            }
+            Vector3 movementEditor = new Vector3(speed.x * inputX, 0, 0);
             movementEditor *= Time.deltaTime;
             transform.Translate(movementEditor);
             return;

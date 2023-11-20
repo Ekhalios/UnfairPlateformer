@@ -26,6 +26,7 @@ public class MapCreator : MonoBehaviour
     private int groundLevel = 0;
     private GameObject selectedPrefab;
     private blocType selectedPrefabType;
+    private bool drawing = false;
 
     void Start()
     {
@@ -63,15 +64,28 @@ public class MapCreator : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && editorMode)
         {
+            if (RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Input.mousePosition))
+            {
+                drawing = false;
+                return;
+            }
+            drawing = true;
+        }
+        if (Input.GetMouseButtonUp(0) || !editorMode)
+        {
+            drawing = false;
+        }
+        if (drawing)
+        {
             if (destroyMode)
             {
                 Vector2 clicPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                Collider2D hitCollider = Physics2D.OverlapPoint(clicPosition);
+                RaycastHit2D hit = Physics2D.Raycast(clicPosition, Vector2.zero);
 
-                if (hitCollider != null)
+                if (hit.collider != null)
                 {
-                    GameObject objetTouche = hitCollider.gameObject;
+                    GameObject objetTouche = hit.collider.gameObject;
                     if (objetTouche.tag == ("Destroyable") || objetTouche.tag == ("killPlayer"))
                     {
                         Destroy(objetTouche);
@@ -99,22 +113,6 @@ public class MapCreator : MonoBehaviour
                 }
                 return;
             }
-            if (RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Input.mousePosition))
-            {
-                return;
-            }/*
-            Vector2 clicPosition1 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            Collider2D hitCollider1 = Physics2D.OverlapPoint(clicPosition1);
-
-            if (hitCollider1 != null)
-            {
-                GameObject objetTouche1 = hitCollider1.gameObject;
-                if (objetTouche1.tag == ("Destroyable") || objetTouche1.tag == ("killPlayer"))
-                {
-                    Destroy(objetTouche1);
-                }
-            }*/
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log(mousePos.x + ", " + mousePos.y);
             Debug.Log((int)mousePos.x + ", " + (int)mousePos.y);
@@ -137,6 +135,18 @@ public class MapCreator : MonoBehaviour
             }
             if (posX < 0 || posY < 0) { return; }
             array[posX, posY] = selectedPrefabType;
+            Vector2 clicPosition1 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            RaycastHit2D hit1 = Physics2D.Raycast(clicPosition1, Vector2.zero);
+
+            if (hit1.collider != null)
+            {
+                GameObject objetTouche1 = hit1.collider.gameObject;
+                if (objetTouche1.tag == ("Destroyable") || objetTouche1.tag == ("killPlayer"))
+                {
+                    Destroy(objetTouche1);
+                }
+            }
             Instantiate(selectedPrefab, new Vector3(posX, posY, 0), Quaternion.identity);
         }
     }
@@ -144,6 +154,10 @@ public class MapCreator : MonoBehaviour
     public void switchEditor()
     {
         editorMode = !editorMode;
+        if (editorMode)
+        {
+            drawMap();
+        }
     }
 
     public bool getEditorMode()

@@ -60,12 +60,12 @@ public class PlayerMovement : MonoBehaviour
         if (inputX > 0 && !reverse)
         {
             reverse = !reverse;
-            spriteRenderer.flipX = true;
+            spriteRenderer.flipX = false;
         }
         if (inputX < 0 && reverse)
         {
             reverse = !reverse;
-            spriteRenderer.flipX = false;
+            spriteRenderer.flipX = true;
         }
     }
 

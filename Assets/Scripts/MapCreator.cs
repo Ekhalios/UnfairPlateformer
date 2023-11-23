@@ -10,7 +10,8 @@ public enum blocType
     GROUNDTOP,
     GROUNDBOT,
     FAKEGROUND,
-    SPIKE
+    SPIKE,
+    FLAG
 }
 
 public class MapCreator : MonoBehaviour
@@ -21,6 +22,7 @@ public class MapCreator : MonoBehaviour
     public GameObject prefabGroundBot;
     public GameObject prefabFakeGround;
     public GameObject prefabSpike;
+    public GameObject prefabFlag;
     public RectTransform panelRectTransform;
     public string mapName;
 
@@ -178,6 +180,10 @@ public class MapCreator : MonoBehaviour
         {
             return blocType.GROUNDBOT;
         }
+        else if (prefab == prefabFlag)
+        {
+            return blocType.FLAG;
+        }
         else
         {
             return blocType.GROUNDTOP;
@@ -216,6 +222,10 @@ public class MapCreator : MonoBehaviour
                 if (array[x, y] == blocType.SPIKE)
                 {
                     Instantiate(prefabSpike, new Vector3(x, y, 0), Quaternion.identity);
+                }
+                if (array[x, y] == blocType.FLAG)
+                {
+                    Instantiate(prefabFlag, new Vector3(x, y, 0), Quaternion.identity);
                 }
             }
         }

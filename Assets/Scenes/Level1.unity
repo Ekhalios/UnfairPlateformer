@@ -599,6 +599,10 @@ PrefabInstance:
       value: Level1
       objectReference: {fileID: 0}
     - target: {fileID: 7302700884475185862, guid: c33b842cdbc716e4f937aab1a1bd5261, type: 3}
+      propertyPath: prefabFlag
+      value: 
+      objectReference: {fileID: 6568804954021142687, guid: 052242c1647189c49af2a99ce7bdf178, type: 3}
+    - target: {fileID: 7302700884475185862, guid: c33b842cdbc716e4f937aab1a1bd5261, type: 3}
       propertyPath: panelRectTransform
       value: 
       objectReference: {fileID: 1397607011}
@@ -646,6 +650,14 @@ PrefabInstance:
     - target: {fileID: 1413841331873879228, guid: d507320e9cd0a084aa01e1f4050cc524, type: 3}
       propertyPath: m_Name
       value: GameCanva
+      objectReference: {fileID: 0}
+    - target: {fileID: 4307397577080021406, guid: d507320e9cd0a084aa01e1f4050cc524, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 701118302}
+    - target: {fileID: 4307397577080021406, guid: d507320e9cd0a084aa01e1f4050cc524, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: switchPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 5523654865387077335, guid: d507320e9cd0a084aa01e1f4050cc524, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

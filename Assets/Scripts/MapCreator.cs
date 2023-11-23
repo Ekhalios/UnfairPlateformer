@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public enum blocType
 {
@@ -27,10 +29,12 @@ public class MapCreator : MonoBehaviour
     private GameObject selectedPrefab;
     private blocType selectedPrefabType;
     private bool drawing = false;
+    private string privatePath;
+    private string filePath;
 
     void Start()
     {
-        selectedPrefab = prefabGroundTop;
+        /*selectedPrefab = prefabGroundTop;
         selectedPrefabType = blocType.GROUNDTOP;
         for (int x = 0; x < 100; x++)
         {
@@ -55,13 +59,18 @@ public class MapCreator : MonoBehaviour
         array[24, groundLevel + 2] = blocType.GROUNDTOP;
         array[25, groundLevel + 2] = blocType.GROUNDTOP;
         array[27, groundLevel + 1] = blocType.SPIKE;
-
-
+        */
+        privatePath = Application.streamingAssetsPath + "/Maps/";
+        LoadMap("StartMap");
         drawMap();
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            SaveMap("StartMap");
+        }
         if (Input.GetMouseButtonDown(0) && editorMode)
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Input.mousePosition))
@@ -235,6 +244,58 @@ public class MapCreator : MonoBehaviour
                     Instantiate(prefabSpike, new Vector3(x, y, 0), Quaternion.identity);
                 }
             }
+        }
+    }
+
+    public void SaveMap(string MapName)
+    {
+        filePath = privatePath + MapName;
+        Debug.Log(filePath);
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream fileStream = new FileStream(filePath, FileMode.Create);
+
+        List<List<int>> serializableArray = new List<List<int>>();
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            List<int> row = new List<int>();
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                row.Add((int)array[i, j]);
+            }
+            serializableArray.Add(row);
+        }
+
+        formatter.Serialize(fileStream, serializableArray);
+        fileStream.Close();
+
+        Debug.Log("Tableau sauvegardé !");
+    }
+
+    public void LoadMap(string MapName)
+    {
+        filePath = privatePath + MapName;
+        Debug.Log(filePath);
+        if (File.Exists(filePath))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream fileStream = new FileStream(filePath, FileMode.Open);
+
+            List<List<int>> serializableArray = (List<List<int>>)formatter.Deserialize(fileStream);
+            fileStream.Close();
+
+            for (int i = 0; i < serializableArray.Count; i++)
+            {
+                for (int j = 0; j < serializableArray[i].Count; j++)
+                {
+                    array[i, j] = (blocType)serializableArray[i][j];
+                }
+            }
+
+            Debug.Log("Tableau chargé !");
+        }
+        else
+        {
+            Debug.LogWarning("Aucun fichier de sauvegarde trouvé.");
         }
     }
 } 

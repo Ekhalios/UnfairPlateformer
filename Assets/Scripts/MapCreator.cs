@@ -22,10 +22,10 @@ public class MapCreator : MonoBehaviour
     public GameObject prefabFakeGround;
     public GameObject prefabSpike;
     public RectTransform panelRectTransform;
+    public string mapName;
 
     private bool editorMode = false;
     private bool destroyMode = false;
-    private int groundLevel = 0;
     private GameObject selectedPrefab;
     private blocType selectedPrefabType;
     private bool drawing = false;
@@ -34,34 +34,8 @@ public class MapCreator : MonoBehaviour
 
     void Start()
     {
-        /*selectedPrefab = prefabGroundTop;
-        selectedPrefabType = blocType.GROUNDTOP;
-        for (int x = 0; x < 100; x++)
-        {
-            for (int y = 0; y < 15; y++)
-            {
-                array[x, y] = blocType.VOID;
-                if (y == groundLevel)
-                {
-                    array[x, y] = blocType.GROUNDTOP;
-                } else if (y < groundLevel)
-                {
-                    array[x, y] = blocType.GROUNDBOT;
-                }
-            }
-        }
-        array[18, groundLevel] = blocType.FAKEGROUND;
-        array[19, groundLevel] = blocType.FAKEGROUND;
-        array[20, groundLevel + 1] = blocType.SPIKE;
-        array[21, groundLevel + 1] = blocType.SPIKE;
-        array[22, groundLevel] = blocType.FAKEGROUND;
-        array[23, groundLevel] = blocType.FAKEGROUND;
-        array[24, groundLevel + 2] = blocType.GROUNDTOP;
-        array[25, groundLevel + 2] = blocType.GROUNDTOP;
-        array[27, groundLevel + 1] = blocType.SPIKE;
-        */
         privatePath = Application.streamingAssetsPath + "/Maps/";
-        LoadMap("StartMap");
+        LoadMap(mapName);
         drawMap();
     }
 
@@ -69,7 +43,7 @@ public class MapCreator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            SaveMap("StartMap");
+            SaveMap(mapName);
         }
         if (Input.GetMouseButtonDown(0) && editorMode)
         {

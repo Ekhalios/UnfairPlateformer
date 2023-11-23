@@ -595,6 +595,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2118885694}
     - target: {fileID: 7302700884475185862, guid: c33b842cdbc716e4f937aab1a1bd5261, type: 3}
+      propertyPath: mapName
+      value: Level4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7302700884475185862, guid: c33b842cdbc716e4f937aab1a1bd5261, type: 3}
       propertyPath: panelRectTransform
       value: 
       objectReference: {fileID: 1397607011}

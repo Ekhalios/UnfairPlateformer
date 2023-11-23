@@ -9,7 +9,7 @@ public class MenuButton : MonoBehaviour
 
     public void onClickStart()
     {
-        SceneManager.LoadScene(startScene);
+        SceneManager.LoadScene(1);
     }
 
     public void onClickQuit()

@@ -16,7 +16,7 @@ public class PlayerDeath : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y < -50)
+        if (transform.position.y < -10)
         {
             mapCreator.drawMap();
             rb.velocity = new Vector3(0, 0, 0);

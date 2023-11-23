@@ -57,6 +57,10 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.gravityScale = fallingGravityScale;
         }
+        if (rb.velocity.y < -15)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, -15, 0);
+        }
         if (inputX > 0 && !reverse)
         {
             reverse = !reverse;

@@ -132,7 +132,7 @@ public class MapCreator : MonoBehaviour
                     Destroy(objetTouche1);
                 }
             }
-            Instantiate(selectedPrefab, new Vector3(posX, posY, 0), Quaternion.identity);
+            Instantiate(selectedPrefab, new Vector3(posX, posY, -1), Quaternion.identity);
         }
     }
 
@@ -209,23 +209,23 @@ public class MapCreator : MonoBehaviour
             {
                 if (array[x, y] == blocType.GROUNDTOP)
                 {
-                    Instantiate(prefabGroundTop, new Vector3(x, y, 0), Quaternion.identity);
+                    Instantiate(prefabGroundTop, new Vector3(x, y, -1), Quaternion.identity);
                 }
                 if (array[x, y] == blocType.GROUNDBOT)
                 {
-                    Instantiate(prefabGroundBot, new Vector3(x, y, 0), Quaternion.identity);
+                    Instantiate(prefabGroundBot, new Vector3(x, y, -1), Quaternion.identity);
                 }
                 if (array[x, y] == blocType.FAKEGROUND)
                 {
-                    Instantiate(prefabFakeGround, new Vector3(x, y, 0), Quaternion.identity);
+                    Instantiate(prefabFakeGround, new Vector3(x, y, -1), Quaternion.identity);
                 }
                 if (array[x, y] == blocType.SPIKE)
                 {
-                    Instantiate(prefabSpike, new Vector3(x, y, 0), Quaternion.identity);
+                    Instantiate(prefabSpike, new Vector3(x, y, -1), Quaternion.identity);
                 }
                 if (array[x, y] == blocType.FLAG)
                 {
-                    Instantiate(prefabFlag, new Vector3(x, y, 0), Quaternion.identity);
+                    Instantiate(prefabFlag, new Vector3(x, y, -1), Quaternion.identity);
                 }
             }
         }

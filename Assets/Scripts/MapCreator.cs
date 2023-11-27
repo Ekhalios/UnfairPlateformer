@@ -38,6 +38,7 @@ public class MapCreator : MonoBehaviour
     void Start()
     {
         privatePath = Application.streamingAssetsPath + "/Maps/";
+        listMaps(privatePath);
         LoadMap(mapName);
         drawMap();
     }
@@ -250,6 +251,19 @@ public class MapCreator : MonoBehaviour
         fileStream.Close();
 
         Debug.Log("Tableau sauvegardé !");
+    }
+
+    public void listMaps(string path)
+    {
+        string[] files = Directory.GetFiles(path);
+        foreach (string file in files)
+        {
+            if (!file.EndsWith(".meta"))
+            {
+                string fileName = Path.GetFileName(file);
+                Debug.Log(fileName);
+            }
+        }
     }
 
     public void LoadMap(string MapName)

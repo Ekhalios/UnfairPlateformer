@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using TMPro;
 
 public enum blocType
 {
@@ -43,10 +44,6 @@ public class MapCreator : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            SaveMap(mapName);
-        }
         if (Input.GetMouseButtonDown(0) && editorMode)
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Input.mousePosition))
@@ -231,9 +228,9 @@ public class MapCreator : MonoBehaviour
         }
     }
 
-    public void SaveMap(string MapName)
+    public void SaveMap(TMP_InputField str)
     {
-        filePath = privatePath + MapName;
+        filePath = privatePath + str.text;
         Debug.Log(filePath);
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream fileStream = new FileStream(filePath, FileMode.Create);

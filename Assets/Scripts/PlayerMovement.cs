@@ -7,12 +7,12 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 speed = new Vector2(5, 5);
     public Vector2 initialPosition = new Vector2(9, 1);
     public Rigidbody2D rb;
-    public float gravityScale = 2;
-    public float fallingGravityScale = 7.5f;
     private bool onGround = true;
     private SpriteRenderer spriteRenderer;
     private bool reverse = false;
     public MapCreator mapCreator;
+
+    private bool controlable = true;
 
     void Start()
     {
@@ -22,6 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!controlable)
+        {
+            return;
+        }
         float inputX = Input.GetAxis("Horizontal");
 
         if (mapCreator.getEditorMode())
@@ -48,14 +52,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector2.up * speed.y, ForceMode2D.Impulse);
             onGround = false;
-        }
-        if (rb.velocity.y >= 0)
-        {
-            rb.gravityScale = gravityScale;
-        }
-        else if (rb.velocity.y < 0)
-        {
-            rb.gravityScale = fallingGravityScale;
         }
         if (rb.velocity.y < -15)
         {
@@ -84,4 +80,8 @@ public class PlayerMovement : MonoBehaviour
         transform.position = initialPosition;
     }
 
+    public void switchControlable()
+    {
+        controlable = !controlable;
+    }
 }

@@ -9,7 +9,12 @@ public class MenuButton : MonoBehaviour
 
     public void onClickStart()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("LevelSelector");
+    }
+
+    public void onClickEditor()
+    {
+        SceneManager.LoadScene("mapSelector");
     }
 
     public void onClickQuit()

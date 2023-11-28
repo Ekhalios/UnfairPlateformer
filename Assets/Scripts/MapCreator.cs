@@ -19,6 +19,7 @@ public class MapCreator : MonoBehaviour
 {
     public blocType[,] array = new blocType[100, 15];
     public GameObject player;
+    public GameObject LayerEditor;
     public GameObject prefabGroundTop;
     public GameObject prefabGroundBot;
     public GameObject prefabFakeGround;
@@ -38,8 +39,17 @@ public class MapCreator : MonoBehaviour
     void Start()
     {
         privatePath = Application.streamingAssetsPath + "/Maps/";
-        listMaps(privatePath);
-        LoadMap(mapName);
+        string savedMapFileName = PlayerPrefs.GetString("MapFileName", "");
+        mapName = savedMapFileName;
+        if (mapName.StartsWith("Level") && mapName.Length == 6)
+        { 
+            LayerEditor.SetActive(false);
+        }
+        if (mapName == "Level0")
+        {
+            LayerEditor.SetActive(true);
+        }
+        LoadMap(savedMapFileName);
         drawMap();
     }
 
@@ -130,7 +140,7 @@ public class MapCreator : MonoBehaviour
                     Destroy(objetTouche1);
                 }
             }
-            Instantiate(selectedPrefab, new Vector3(posX, posY, -1), Quaternion.identity);
+            Instantiate(selectedPrefab, new Vector3(posX, posY, 1), Quaternion.identity);
         }
     }
 
@@ -207,23 +217,23 @@ public class MapCreator : MonoBehaviour
             {
                 if (array[x, y] == blocType.GROUNDTOP)
                 {
-                    Instantiate(prefabGroundTop, new Vector3(x, y, -1), Quaternion.identity);
+                    Instantiate(prefabGroundTop, new Vector3(x, y, 1), Quaternion.identity);
                 }
                 if (array[x, y] == blocType.GROUNDBOT)
                 {
-                    Instantiate(prefabGroundBot, new Vector3(x, y, -1), Quaternion.identity);
+                    Instantiate(prefabGroundBot, new Vector3(x, y, 1), Quaternion.identity);
                 }
                 if (array[x, y] == blocType.FAKEGROUND)
                 {
-                    Instantiate(prefabFakeGround, new Vector3(x, y, -1), Quaternion.identity);
+                    Instantiate(prefabFakeGround, new Vector3(x, y, 1), Quaternion.identity);
                 }
                 if (array[x, y] == blocType.SPIKE)
                 {
-                    Instantiate(prefabSpike, new Vector3(x, y, -1), Quaternion.identity);
+                    Instantiate(prefabSpike, new Vector3(x, y, 1), Quaternion.identity);
                 }
                 if (array[x, y] == blocType.FLAG)
                 {
-                    Instantiate(prefabFlag, new Vector3(x, y, -1), Quaternion.identity);
+                    Instantiate(prefabFlag, new Vector3(x, y, 1), Quaternion.identity);
                 }
             }
         }
@@ -251,19 +261,6 @@ public class MapCreator : MonoBehaviour
         fileStream.Close();
 
         Debug.Log("Tableau sauvegardé !");
-    }
-
-    public void listMaps(string path)
-    {
-        string[] files = Directory.GetFiles(path);
-        foreach (string file in files)
-        {
-            if (!file.EndsWith(".meta"))
-            {
-                string fileName = Path.GetFileName(file);
-                Debug.Log(fileName);
-            }
-        }
     }
 
     public void LoadMap(string MapName)

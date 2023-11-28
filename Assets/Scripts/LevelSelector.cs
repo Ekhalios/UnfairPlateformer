@@ -9,23 +9,33 @@ public class LevelSelector : MonoBehaviour
 
     public void onClickLevel1()
     {
-        SceneManager.LoadScene(2);
+        PlayerPrefs.SetString("MapFileName", "Level1");
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("GameScene");
     }
     public void onClickLevel2()
     {
-        SceneManager.LoadScene(3);
+        PlayerPrefs.SetString("MapFileName", "Level2");
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("GameScene");
     }
     public void onClickLevel3()
     {
-        SceneManager.LoadScene(4);
+        PlayerPrefs.SetString("MapFileName", "Level3");
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("GameScene");
     }
     public void onClickLevel4()
     {
-        SceneManager.LoadScene(5);
+        PlayerPrefs.SetString("MapFileName", "Level4");
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("GameScene");
     }
     public void onClickLevel5()
     {
-        SceneManager.LoadScene(6);
+        PlayerPrefs.SetString("MapFileName", "Level5");
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("GameScene");
     }
 
     public void onClickMenu()

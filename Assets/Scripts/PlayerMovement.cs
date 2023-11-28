@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 return;
             }
-            Vector3 movementEditor = new Vector3(speed.x * inputX, 0, 0);
+            Vector3 movementEditor = new Vector3(speed.x * 2 * inputX, 0, 0);
             movementEditor *= Time.deltaTime;
             transform.Translate(movementEditor);
             return;

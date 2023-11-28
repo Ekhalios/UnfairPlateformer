@@ -12,7 +12,8 @@ public enum blocType
     GROUNDBOT,
     FAKEGROUND,
     SPIKE,
-    FLAG
+    FLAG,
+    HIDEGROUND
 }
 
 public class MapCreator : MonoBehaviour
@@ -25,6 +26,7 @@ public class MapCreator : MonoBehaviour
     public GameObject prefabFakeGround;
     public GameObject prefabSpike;
     public GameObject prefabFlag;
+    public GameObject prefabHideGround;
     public RectTransform panelRectTransform;
     public string mapName;
 
@@ -38,14 +40,14 @@ public class MapCreator : MonoBehaviour
 
     void Start()
     {
-        privatePath = Application.streamingAssetsPath + "/Maps/";
+        privatePath = Application.streamingAssetsPath;
         string savedMapFileName = PlayerPrefs.GetString("MapFileName", "");
         mapName = savedMapFileName;
-        if (mapName.StartsWith("Level") && mapName.Length == 6)
+        if (mapName.StartsWith("/Maps/"))
         { 
             LayerEditor.SetActive(false);
         }
-        if (mapName == "Level0")
+        if (mapName == "/Maps/Level0")
         {
             LayerEditor.SetActive(true);
         }
@@ -192,6 +194,10 @@ public class MapCreator : MonoBehaviour
         {
             return blocType.FLAG;
         }
+        else if (prefab == prefabHideGround)
+        {
+            return blocType.HIDEGROUND;
+        }
         else
         {
             return blocType.GROUNDTOP;
@@ -219,21 +225,25 @@ public class MapCreator : MonoBehaviour
                 {
                     Instantiate(prefabGroundTop, new Vector3(x, y, 1), Quaternion.identity);
                 }
-                if (array[x, y] == blocType.GROUNDBOT)
+                else if (array[x, y] == blocType.GROUNDBOT)
                 {
                     Instantiate(prefabGroundBot, new Vector3(x, y, 1), Quaternion.identity);
                 }
-                if (array[x, y] == blocType.FAKEGROUND)
+                else if (array[x, y] == blocType.FAKEGROUND)
                 {
                     Instantiate(prefabFakeGround, new Vector3(x, y, 1), Quaternion.identity);
                 }
-                if (array[x, y] == blocType.SPIKE)
+                else if (array[x, y] == blocType.SPIKE)
                 {
                     Instantiate(prefabSpike, new Vector3(x, y, 1), Quaternion.identity);
                 }
-                if (array[x, y] == blocType.FLAG)
+                else if (array[x, y] == blocType.FLAG)
                 {
                     Instantiate(prefabFlag, new Vector3(x, y, 1), Quaternion.identity);
+                }
+                else if (array[x, y] == blocType.HIDEGROUND)
+                {
+                    Instantiate(prefabHideGround, new Vector3(x, y, 1), Quaternion.identity);
                 }
             }
         }
@@ -241,7 +251,7 @@ public class MapCreator : MonoBehaviour
 
     public void SaveMap(TMP_InputField str)
     {
-        filePath = privatePath + str.text;
+        filePath = privatePath + "/CustomMaps/" + str.text;
         Debug.Log(filePath);
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream fileStream = new FileStream(filePath, FileMode.Create);

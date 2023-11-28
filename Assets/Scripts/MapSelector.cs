@@ -43,7 +43,7 @@ public class MapSelector : MonoBehaviour
     }
     void PopulateFileList()
     {
-        string streamingAssetsPath = Application.streamingAssetsPath + "/Maps/";
+        string streamingAssetsPath = Application.streamingAssetsPath + "/CustomMaps/";
         string[] files = Directory.GetFiles(streamingAssetsPath);
         int pos = 0;
 
@@ -55,8 +55,6 @@ public class MapSelector : MonoBehaviour
             {
                 continue;
             }
-            if (fileName.StartsWith("Level") && fileName.Length == 6) 
-            { continue; }
             Button fileButton = Instantiate(fileButtonPrefab, scrollRect.content);
             fileButton.GetComponentInChildren<TextMeshProUGUI>().text = fileName;
 
@@ -77,7 +75,7 @@ public class MapSelector : MonoBehaviour
 
     public void DeleteFile()
     {
-        string filePath = Path.Combine(Application.streamingAssetsPath + "/Maps/", fileSelected);
+        string filePath = Path.Combine(Application.streamingAssetsPath + "/CustomMaps/", fileSelected);
 
         try
         {
@@ -108,14 +106,14 @@ public class MapSelector : MonoBehaviour
 
     public void switchScene()
     {
-        PlayerPrefs.SetString("MapFileName", fileSelected);
+        PlayerPrefs.SetString("MapFileName", "/CustomMaps/" + fileSelected);
         PlayerPrefs.Save();
         SceneManager.LoadScene("GameScene");
     }
 
     public void switchNewMap()
     {
-        PlayerPrefs.SetString("MapFileName", "Level0");
+        PlayerPrefs.SetString("MapFileName", "/Maps/Level0");
         PlayerPrefs.Save();
         SceneManager.LoadScene("GameScene");
     }

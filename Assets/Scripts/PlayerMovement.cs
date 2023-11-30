@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer.flipX = flipX;
     }
 
-    public void editor()
+    public void Editor()
     {
         spriteRenderer.enabled = !spriteRenderer.enabled;
         rb.isKinematic = !rb.isKinematic;

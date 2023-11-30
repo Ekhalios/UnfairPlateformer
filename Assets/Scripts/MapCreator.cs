@@ -48,8 +48,7 @@ public class MapCreator : MonoBehaviour
         { 
             LayerEditor.SetActive(false);
             char lastDigit = mapName[mapName.Length - 1];
-            Debug.Log(lastDigit);
-            if (lastDigit < '5')
+            if (lastDigit < '5' && lastDigit != '0')
             {
                 lastDigit++;
                 nextScene = "GameScene";
@@ -61,7 +60,6 @@ public class MapCreator : MonoBehaviour
         {
             LayerEditor.SetActive(true);
         }
-        Debug.Log(nextScene);
         LoadMap(savedMapFileName);
         drawMap();
     }

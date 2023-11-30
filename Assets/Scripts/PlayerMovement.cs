@@ -34,23 +34,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 return;
             }
-            Vector3 movementEditor = new Vector3(speed.x * 2 * inputX, 0, 0);
-            movementEditor *= Time.deltaTime;
-            transform.Translate(movementEditor);
+            rb.velocity = new Vector2(speed.x * inputX, rb.velocity.y);
             return;
         }
         if (inputX > 0 || transform.position.x > 0) {
-            Vector3 movement = new Vector3(speed.x * inputX, 0, 0);
-            movement *= Time.deltaTime;
-            transform.Translate(movement);
+            rb.velocity = new Vector2(speed.x * inputX, rb.velocity.y);
         }
-        if (rb.velocity.y == 0)
+        if (Input.GetKey(KeyCode.Space) && onGround)
         {
-            onGround = true;
+            rb.velocity = new Vector2(rb.velocity.x, 10);
+            onGround = false;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && onGround)
+        if (rb.velocity.y < 0)
         {
-            rb.AddForce(Vector2.up * speed.y, ForceMode2D.Impulse);
             onGround = false;
         }
         if (rb.velocity.y < -15)
@@ -83,5 +79,18 @@ public class PlayerMovement : MonoBehaviour
     public void switchControlable()
     {
         controlable = !controlable;
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        float colliderYPosition = col.contacts[0].point.y;
+
+        foreach (ContactPoint2D contact in col.contacts)
+        {
+            if (contact.point.y < transform.position.y)
+            {
+                onGround = true;
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ public class PlayerDeath : MonoBehaviour
     public PlayerMovement playerMovement;
 
     private Rigidbody2D rb;
+    public AudioSource deathSoundEffect;
 
     void Start()
     {
@@ -18,6 +19,7 @@ public class PlayerDeath : MonoBehaviour
     {
         if (transform.position.y < -10)
         {
+            deathSoundEffect.Play();
             mapCreator.drawMap();
             rb.velocity = new Vector3(0, 0, 0);
             playerMovement.switchToInitialPos();
@@ -28,6 +30,7 @@ public class PlayerDeath : MonoBehaviour
     {
         if (col.gameObject.tag == "killPlayer")
         {
+            deathSoundEffect.Play();
             mapCreator.drawMap();
             rb.velocity = new Vector3(0, 0, 0);
             playerMovement.switchToInitialPos();

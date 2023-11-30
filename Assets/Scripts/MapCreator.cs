@@ -37,6 +37,7 @@ public class MapCreator : MonoBehaviour
     private bool drawing = false;
     private string privatePath;
     private string filePath;
+    private string nextScene = "Menu";
 
     void Start()
     {
@@ -46,11 +47,21 @@ public class MapCreator : MonoBehaviour
         if (mapName.StartsWith("/Maps/"))
         { 
             LayerEditor.SetActive(false);
+            char lastDigit = mapName[mapName.Length - 1];
+            Debug.Log(lastDigit);
+            if (lastDigit < '5')
+            {
+                lastDigit++;
+                nextScene = "GameScene";
+                Debug.Log(lastDigit);
+                PlayerPrefs.SetString("MapFileName", "/Maps/Level" + lastDigit);
+            }
         }
         if (mapName == "/Maps/Level0")
         {
             LayerEditor.SetActive(true);
         }
+        Debug.Log(nextScene);
         LoadMap(savedMapFileName);
         drawMap();
     }
@@ -146,6 +157,7 @@ public class MapCreator : MonoBehaviour
         }
     }
 
+    public string getNextScene() { return nextScene; }
     public void switchEditor()
     {
         editorMode = !editorMode;

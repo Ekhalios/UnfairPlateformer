@@ -12,11 +12,16 @@ public class TextSlider : MonoBehaviour
     void Start()
     {
         slider = GetComponent<Slider>();
+        Debug.Log(AudioListener.volume);
+        slider.value = AudioListener.volume * 100;
+        Debug.Log(slider.value);
         setNumbertext(slider.value);
     }
 
     public void setNumbertext(float value)
     {
         numberText.text = value.ToString();
+        float volume = value / 100f;
+        AudioListener.volume = volume;
     }
 }

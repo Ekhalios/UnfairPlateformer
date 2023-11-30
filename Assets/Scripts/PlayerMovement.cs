@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -11,22 +10,24 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private bool reverse = false;
     public MapCreator mapCreator;
-
     private bool controlable = true;
 
-    void Start()
+    public AudioSource jumpSoundEffect;
+
+    private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         switchToInitialPos();
     }
 
-    void Update()
+    private void Update()
     {
         if (!controlable)
         {
             return;
         }
-        float inputX = Input.GetAxis("Horizontal");
+
+        float inputX = Input.GetAxisRaw("Horizontal");
 
         if (mapCreator.getEditorMode())
         {
@@ -34,38 +35,64 @@ public class PlayerMovement : MonoBehaviour
             {
                 return;
             }
+
             rb.velocity = new Vector2(speed.x * inputX, rb.velocity.y);
             return;
         }
-        if (inputX > 0 || transform.position.x > 0) {
+
+        HandlePlayerMovement(inputX);
+        HandleJump();
+        FlipSprite(inputX);
+    }
+
+    private void HandlePlayerMovement(float inputX)
+    {
+        if (inputX > 0 || transform.position.x > 0)
+        {
             rb.velocity = new Vector2(speed.x * inputX, rb.velocity.y);
         }
+    }
+
+    private void HandleJump()
+    {
         if (Input.GetKey(KeyCode.Space) && onGround)
         {
             rb.velocity = new Vector2(rb.velocity.x, 10);
+            jumpSoundEffect.Play();
             onGround = false;
         }
+
         if (rb.velocity.y < 0)
         {
             onGround = false;
         }
+
         if (rb.velocity.y < -15)
         {
             rb.velocity = new Vector3(rb.velocity.x, -15, 0);
         }
+    }
+
+    private void FlipSprite(float inputX)
+    {
         if (inputX > 0 && !reverse)
         {
-            reverse = !reverse;
-            spriteRenderer.flipX = false;
+            ReverseSprite(false);
         }
+
         if (inputX < 0 && reverse)
         {
-            reverse = !reverse;
-            spriteRenderer.flipX = true;
+            ReverseSprite(true);
         }
     }
 
-    public void Editor()
+    private void ReverseSprite(bool flipX)
+    {
+        reverse = !reverse;
+        spriteRenderer.flipX = flipX;
+    }
+
+    public void editor()
     {
         spriteRenderer.enabled = !spriteRenderer.enabled;
         rb.isKinematic = !rb.isKinematic;
@@ -81,10 +108,8 @@ public class PlayerMovement : MonoBehaviour
         controlable = !controlable;
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        float colliderYPosition = col.contacts[0].point.y;
-
         foreach (ContactPoint2D contact in col.contacts)
         {
             if (contact.point.y < transform.position.y)

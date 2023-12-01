@@ -14,7 +14,8 @@ public enum blocType
     FAKEGROUND,
     SPIKE,
     FLAG,
-    HIDEGROUND
+    HIDEGROUND,
+    FAKEGROUNDBOT,
 }
 
 public class MapCreator : MonoBehaviour
@@ -25,6 +26,7 @@ public class MapCreator : MonoBehaviour
     public GameObject LayerChooseItem;
     public GameObject prefabGroundTop;
     public GameObject prefabGroundBot;
+    public GameObject prefabFakeGroundBot;
     public GameObject prefabFakeGround;
     public GameObject prefabSpike;
     public GameObject prefabFlag;
@@ -249,6 +251,10 @@ public class MapCreator : MonoBehaviour
         {
             return blocType.HIDEGROUND;
         }
+        else if (prefab == prefabFakeGroundBot)
+        {
+            return blocType.FAKEGROUNDBOT;
+        }
         else
         {
             return blocType.GROUNDTOP;
@@ -296,6 +302,11 @@ public class MapCreator : MonoBehaviour
                 else if (array[x, y] == blocType.HIDEGROUND)
                 {
                     GameObject newObject = Instantiate(prefabHideGround, new Vector3(x, y, 1), Quaternion.identity);
+                    newObject.layer = LayerMask.NameToLayer("Ground");
+                }
+                else if (array[x, y] == blocType.FAKEGROUNDBOT)
+                {
+                    GameObject newObject = Instantiate(prefabFakeGroundBot, new Vector3(x, y, 1), Quaternion.identity);
                     newObject.layer = LayerMask.NameToLayer("Ground");
                 }
             }

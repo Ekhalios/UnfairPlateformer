@@ -118,8 +118,6 @@ public class MapCreator : MonoBehaviour
                 return;
             }
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(mousePos.x + ", " + mousePos.y);
-            Debug.Log((int)mousePos.x + ", " + (int)mousePos.y);
             int posX = 0; 
             int posY = 0;
             if (mousePos.x >= 0)
@@ -151,7 +149,11 @@ public class MapCreator : MonoBehaviour
                     Destroy(objetTouche1);
                 }
             }
-            Instantiate(selectedPrefab, new Vector3(posX, posY, 1), Quaternion.identity);
+            GameObject newObject = Instantiate(selectedPrefab, new Vector3(posX, posY, 1), Quaternion.identity);
+            if (selectedPrefab == prefabGroundTop || selectedPrefab == prefabHideGround)
+            {
+                newObject.layer = LayerMask.NameToLayer("Ground");
+            }
         }
     }
 
@@ -233,7 +235,8 @@ public class MapCreator : MonoBehaviour
             {
                 if (array[x, y] == blocType.GROUNDTOP)
                 {
-                    Instantiate(prefabGroundTop, new Vector3(x, y, 1), Quaternion.identity);
+                    GameObject newObject = Instantiate(prefabGroundTop, new Vector3(x, y, 1), Quaternion.identity);
+                    newObject.layer = LayerMask.NameToLayer("Ground");
                 }
                 else if (array[x, y] == blocType.GROUNDBOT)
                 {
@@ -241,7 +244,7 @@ public class MapCreator : MonoBehaviour
                 }
                 else if (array[x, y] == blocType.FAKEGROUND)
                 {
-                    Instantiate(prefabFakeGround, new Vector3(x, y, 1), Quaternion.identity);
+                    GameObject newObject = Instantiate(prefabFakeGround, new Vector3(x, y, 1), Quaternion.identity);
                 }
                 else if (array[x, y] == blocType.SPIKE)
                 {
@@ -253,7 +256,8 @@ public class MapCreator : MonoBehaviour
                 }
                 else if (array[x, y] == blocType.HIDEGROUND)
                 {
-                    Instantiate(prefabHideGround, new Vector3(x, y, 1), Quaternion.identity);
+                    GameObject newObject = Instantiate(prefabHideGround, new Vector3(x, y, 1), Quaternion.identity);
+                    newObject.layer = LayerMask.NameToLayer("Ground");
                 }
             }
         }

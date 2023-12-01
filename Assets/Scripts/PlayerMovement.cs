@@ -180,18 +180,18 @@ public class PlayerMovement : MonoBehaviour
             canMoveRight = false;
         }
         Vector2 raycastOrigin2 = new Vector2(playerCollider.bounds.center.x, playerCollider.bounds.max.y);
-        RaycastHit2D hitHead1 = Physics2D.Raycast(raycastOrigin2, Vector2.left, playerSize.x / 2 + 0.1f, groundLayerMask);
+        RaycastHit2D hitHead1 = Physics2D.Raycast(raycastOrigin2, Vector2.right, playerSize.x / 2 + 0.1f, groundLayerMask);
         Debug.DrawRay(raycastOrigin2, Vector2.right * (playerSize.y / 2 + 0.1f), Color.red);
         if (hitHead1.collider != null)
         {
-            canMoveLeft = false;
+            canMoveRight = false;
         }
         Vector2 raycastOrigin3 = new Vector2(playerCollider.bounds.center.x, playerCollider.bounds.min.y);
-        RaycastHit2D hitFoot1 = Physics2D.Raycast(raycastOrigin3, Vector2.left, playerSize.x / 2 + 0.1f, groundLayerMask);
+        RaycastHit2D hitFoot1 = Physics2D.Raycast(raycastOrigin3, Vector2.right, playerSize.x / 2 + 0.1f, groundLayerMask);
         Debug.DrawRay(raycastOrigin3, Vector2.right * (playerSize.y / 2 + 0.1f), Color.red);
         if (hitFoot1.collider != null)
         {
-            canMoveLeft = false;
+            canMoveRight = false;
         }
         if (hit.collider == null && hitHead.collider == null && hitFoot.collider == null)
         {

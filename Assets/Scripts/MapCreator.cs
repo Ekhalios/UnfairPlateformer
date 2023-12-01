@@ -38,6 +38,7 @@ public class MapCreator : MonoBehaviour
     private string privatePath;
     private string filePath;
     private string nextScene = "Menu";
+    GameObject selectionSprite;
 
     void Start()
     {
@@ -62,10 +63,13 @@ public class MapCreator : MonoBehaviour
         }
         LoadMap(savedMapFileName);
         drawMap();
+        selectionSprite = new GameObject("SelectionSprite");
+        selectionSprite.AddComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        showSelect();
         if (Input.GetMouseButtonDown(0) && editorMode)
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Input.mousePosition))
@@ -155,6 +159,29 @@ public class MapCreator : MonoBehaviour
                 newObject.layer = LayerMask.NameToLayer("Ground");
             }
         }
+    }
+
+    private void showSelect()
+    {
+        if (editorMode)
+        {
+            selectionSprite.SetActive(true);
+        } else
+        {
+            selectionSprite.SetActive(false);
+            return;
+        }
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0f;
+        transform.position = mousePosition;
+        
+        SpriteRenderer spriteRenderer = selectedPrefab.GetComponent<SpriteRenderer>();
+        SpriteRenderer spriteRendererShow = selectionSprite.GetComponent<SpriteRenderer>();
+        spriteRendererShow.sprite = spriteRenderer.sprite;
+        selectionSprite.transform.position = mousePosition;
+        Color spriteColor = spriteRenderer.color;
+        spriteColor.a = 0.5f;
+        spriteRendererShow.color = spriteColor;
     }
 
     public string getNextScene() { return nextScene; }

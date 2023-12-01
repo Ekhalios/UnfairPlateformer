@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
+using UnityEngine.UI;
 
 public enum blocType
 {
@@ -21,6 +22,7 @@ public class MapCreator : MonoBehaviour
     public blocType[,] array = new blocType[100, 15];
     public GameObject player;
     public GameObject LayerEditor;
+    public GameObject LayerChooseItem;
     public GameObject prefabGroundTop;
     public GameObject prefabGroundBot;
     public GameObject prefabFakeGround;
@@ -39,6 +41,8 @@ public class MapCreator : MonoBehaviour
     private string filePath;
     private string nextScene = "Menu";
     GameObject selectionSprite;
+    private SpriteRenderer selectionSpriteRenderer;
+    public Image selectedSprite;
 
     void Start()
     {
@@ -61,14 +65,21 @@ public class MapCreator : MonoBehaviour
         {
             LayerEditor.SetActive(true);
         }
+        selectedPrefabType = blocType.GROUNDTOP;
+        selectedPrefab = prefabGroundTop;
         LoadMap(savedMapFileName);
         drawMap();
         selectionSprite = new GameObject("SelectionSprite");
-        selectionSprite.AddComponent<SpriteRenderer>();
+        selectionSpriteRenderer = selectionSprite.AddComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        if (LayerChooseItem.activeSelf)
+        {
+            selectionSprite.SetActive(false);
+            return;
+        }
         showSelect();
         if (Input.GetMouseButtonDown(0) && editorMode)
         {
@@ -161,6 +172,10 @@ public class MapCreator : MonoBehaviour
         }
     }
 
+    public void setSelectedSprite(Image spriteRender)
+    {
+        selectedSprite = spriteRender;
+    }
     private void showSelect()
     {
         if (editorMode)
@@ -174,14 +189,11 @@ public class MapCreator : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0f;
         transform.position = mousePosition;
-        
-        SpriteRenderer spriteRenderer = selectedPrefab.GetComponent<SpriteRenderer>();
-        SpriteRenderer spriteRendererShow = selectionSprite.GetComponent<SpriteRenderer>();
-        spriteRendererShow.sprite = spriteRenderer.sprite;
-        selectionSprite.transform.position = mousePosition;
-        Color spriteColor = spriteRenderer.color;
+        selectionSpriteRenderer.sprite = selectedSprite.sprite;
+        selectionSpriteRenderer.transform.position = mousePosition;
+        Color spriteColor = selectedSprite.color;
         spriteColor.a = 0.5f;
-        spriteRendererShow.color = spriteColor;
+        selectionSpriteRenderer.color = spriteColor;
     }
 
     public string getNextScene() { return nextScene; }

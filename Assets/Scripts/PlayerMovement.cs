@@ -74,6 +74,9 @@ public class PlayerMovement : MonoBehaviour
         if ((inputX > 0 || transform.position.x > 0))
         {
             rb.velocity = new Vector2(speed.x * inputX, rb.velocity.y);
+        } else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 

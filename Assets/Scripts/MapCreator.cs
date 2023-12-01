@@ -285,7 +285,8 @@ public class MapCreator : MonoBehaviour
                 }
                 else if (array[x, y] == blocType.GROUNDBOT)
                 {
-                    Instantiate(prefabGroundBot, new Vector3(x, y, 1), Quaternion.identity);
+                    GameObject newObject = Instantiate(prefabGroundBot, new Vector3(x, y, 1), Quaternion.identity);
+                    newObject.layer = LayerMask.NameToLayer("Ground");
                 }
                 else if (array[x, y] == blocType.FAKEGROUND)
                 {
@@ -307,7 +308,6 @@ public class MapCreator : MonoBehaviour
                 else if (array[x, y] == blocType.FAKEGROUNDBOT)
                 {
                     GameObject newObject = Instantiate(prefabFakeGroundBot, new Vector3(x, y, 1), Quaternion.identity);
-                    newObject.layer = LayerMask.NameToLayer("Ground");
                 }
             }
         }

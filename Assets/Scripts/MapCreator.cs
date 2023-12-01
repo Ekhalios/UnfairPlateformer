@@ -188,11 +188,27 @@ public class MapCreator : MonoBehaviour
             selectionSprite.SetActive(false);
             return;
         }
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0f;
-        transform.position = mousePosition;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        int posX = 0;
+        int posY = 0;
+        if (mousePos.x >= 0)
+        {
+            posX = (int)(mousePos.x + 0.5);
+        }
+        else
+        {
+            posX = (int)(mousePos.x - 0.5);
+        }
+        if (mousePos.y >= 0)
+        {
+            posY = (int)(mousePos.y + 0.5);
+        }
+        else
+        {
+            posY = (int)(mousePos.y - 0.5);
+        }
         selectionSpriteRenderer.sprite = selectedSprite.sprite;
-        selectionSpriteRenderer.transform.position = mousePosition;
+        selectionSpriteRenderer.transform.position = new Vector3(posX, posY, 0); ;
         Color spriteColor = selectedSprite.color;
         spriteColor.a = 0.5f;
         selectionSpriteRenderer.color = spriteColor;

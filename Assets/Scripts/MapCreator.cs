@@ -5,6 +5,10 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using UnityEngine.UI;
+using Photon.Pun;
+using System;
+using System.Text;
+using System.Linq;
 
 public enum blocType
 {
@@ -35,6 +39,7 @@ public class MapCreator : MonoBehaviour
     public string mapName;
 
     private bool editorMode = false;
+    private PhotonView photonView;
     private bool destroyMode = false;
     private GameObject selectedPrefab;
     private blocType selectedPrefabType;
@@ -71,6 +76,11 @@ public class MapCreator : MonoBehaviour
         selectedPrefab = prefabGroundTop;
         LoadMap(savedMapFileName);
         drawMap();
+        photonView = GetComponent<PhotonView>();
+        if (photonView != null)
+        {
+            SendArray2D();
+        }
         selectionSprite = new GameObject("SelectionSprite");
         selectionSpriteRenderer = selectionSprite.AddComponent<SpriteRenderer>();
     }
@@ -356,7 +366,6 @@ public class MapCreator : MonoBehaviour
     public void LoadMap(string MapName)
     {
         filePath = privatePath + MapName;
-        Debug.Log(filePath);
         if (File.Exists(filePath))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -379,5 +388,70 @@ public class MapCreator : MonoBehaviour
         {
             Debug.LogWarning("Aucun fichier de sauvegarde trouvé.");
         }
+    }
+
+    public void SendArray2D()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+        int rows = array.GetLength(0);
+        int cols = array.GetLength(1);
+        string flattenedArray = ConvertEnumArrayToString(array);
+        LogToFile("Send: " + flattenedArray);
+        photonView.RPC(nameof(ReceiveArray2D), RpcTarget.AllBuffered, flattenedArray);
+    }
+
+    [PunRPC]
+    public void ReceiveArray2D(string flattenedArray)
+    {
+
+        LogToFile("Receive: " + (flattenedArray));
+        blocType[,] newArray = ConvertStringToEnumArray(flattenedArray, 100, 15);
+        array = newArray;
+    }
+
+    public string ConvertEnumArrayToString(blocType[,] enumArray)
+    {
+        string sb = "";
+
+        int rows = 100;
+        int cols = 15;
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                int enumType = (int)enumArray[i, j];
+                sb += enumType.ToString();
+            }
+        }
+
+        return sb;
+    }
+
+    public blocType[,] ConvertStringToEnumArray(string str, int rows, int cols)
+    {
+        blocType[,] newArray = new blocType[rows, cols];
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                int enumType = str[i * cols + j];
+                int zeroChar = '0';
+                enumType = enumType - zeroChar;
+                newArray[i, j] = (blocType)enumType;
+            }
+        }
+
+        return newArray;
+    }
+
+    private void LogToFile(string message)
+    {
+        string logPath = Application.dataPath + "/log.txt";
+        File.AppendAllText(logPath, message + "\n");
     }
 } 

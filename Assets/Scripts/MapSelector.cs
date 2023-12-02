@@ -111,6 +111,11 @@ public class MapSelector : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    public string getfileSelected()
+    {
+        return fileSelected;
+    }
+
     public void switchNewMap()
     {
         PlayerPrefs.SetString("MapFileName", "/Maps/Level0");

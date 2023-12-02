@@ -16,6 +16,10 @@ public class MenuButton : MonoBehaviour
     {
         SceneManager.LoadScene("mapSelector");
     }
+    public void onClickMulti()
+    {
+        SceneManager.LoadScene("Loading");
+    }
 
     public void onClickQuit()
     {

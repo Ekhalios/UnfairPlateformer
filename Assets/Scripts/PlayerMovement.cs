@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        checkMove();
+        //checkMove();
         HandlePlayerMovement(inputX);
         HandleJump();
         FlipSprite(inputX);
@@ -82,26 +82,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJump()
     {
-        int groundLayerMask = 1 << LayerMask.NameToLayer("Ground");
-        RaycastHit2D hit = Physics2D.Raycast(playerCollider.bounds.center, Vector2.down, playerSize.y / 2 + 0.01f, groundLayerMask);
-        if (hit.collider != null)
-        {
-            onGround = true;
-        }
-        Vector2 raycastOrigin = new Vector2(playerCollider.bounds.max.x, playerCollider.bounds.center.y);
-        RaycastHit2D hitHead = Physics2D.Raycast(raycastOrigin, Vector2.down, playerSize.x / 2 + 0.01f, groundLayerMask);
-        if (hitHead.collider != null)
-        {
-            onGround = true;
-        }
-        Vector2 raycastOrigin1 = new Vector2(playerCollider.bounds.min.x, playerCollider.bounds.center.y);
-        RaycastHit2D hitFoot = Physics2D.Raycast(raycastOrigin1, Vector2.down, playerSize.x / 2 + 0.01f, groundLayerMask);
-        if (hitFoot.collider != null)
-        {
-            onGround = true;
-        }
         if (Input.GetKey(KeyCode.Space) && onGround)
         {
+            Debug.Log("JUUUUUUUUUUUUUUUUUUUUUMP");
             rb.velocity = new Vector2(rb.velocity.x, 10);
             jumpSoundEffect.Play();
             onGround = false;
@@ -152,52 +135,35 @@ public class PlayerMovement : MonoBehaviour
     {
         controlable = !controlable;
     }
-
-    private void checkMove()
+    void OnCollisionStay2D(Collision2D collision)
     {
-        canMoveLeft = true;
-        canMoveRight = true;
-        int groundLayerMask = 1 << LayerMask.NameToLayer("Ground");
-        RaycastHit2D hit = Physics2D.Raycast(playerCollider.bounds.center, Vector2.left, playerSize.x / 2 + 0.1f, groundLayerMask);
-        Debug.DrawRay(playerCollider.bounds.center, Vector2.left * (playerSize.y / 2 + 0.1f), Color.red);
-        if (hit.collider != null)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            canMoveLeft = false;
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                float playerTop = transform.position.y + playerSize.y / 2;
+                float playerBottom = transform.position.y - playerSize.y / 2;
+                float playerLeft = transform.position.x - playerSize.y / 2 + 0.1f;
+                float playerRight = transform.position.x + playerSize.y / 2 - 0.1f;
+                if (contact.normal.y >= 1 && contact.point.x > playerLeft && contact.point.x < playerRight)
+                {
+                    onGround = true;
+                }
+                if (contact.normal.x < 0 && contact.point.y > playerBottom && contact.point.y < playerTop)
+                {
+                    canMoveRight = false;
+                }
+                else if (contact.normal.x > 0 && contact.point.y > playerBottom && contact.point.y < playerTop)
+                {
+                    canMoveLeft = false;
+                }
+            }
         }
-        Vector2 raycastOrigin = new Vector2(playerCollider.bounds.center.x, playerCollider.bounds.max.y);
-        RaycastHit2D hitHead = Physics2D.Raycast(raycastOrigin, Vector2.left, playerSize.x / 2 + 0.1f, groundLayerMask);
-        Debug.DrawRay(raycastOrigin, Vector2.left * (playerSize.y / 2 + 0.1f), Color.red);
-        if (hitHead.collider != null)
-        {
-            canMoveLeft = false;
-        }
-        Vector2 raycastOrigin1 = new Vector2(playerCollider.bounds.center.x, playerCollider.bounds.min.y);
-        RaycastHit2D hitFoot = Physics2D.Raycast(raycastOrigin1, Vector2.left, playerSize.x / 2 + 0.1f, groundLayerMask);
-        Debug.DrawRay(raycastOrigin1, Vector2.left * (playerSize.y / 2 + 0.1f), Color.red);
-        if (hitFoot.collider != null)
-        {
-            canMoveLeft = false;
-        }
-        RaycastHit2D hit1 = Physics2D.Raycast(playerCollider.bounds.center, Vector2.right, playerSize.x / 2 + 0.1f, groundLayerMask);
-        Debug.DrawRay(playerCollider.bounds.center, Vector2.right * (playerSize.y / 2 + 0.1f), Color.red);
-        if (hit1.collider != null)
-        {
-            canMoveRight = false;
-        }
-        Vector2 raycastOrigin2 = new Vector2(playerCollider.bounds.center.x, playerCollider.bounds.max.y);
-        RaycastHit2D hitHead1 = Physics2D.Raycast(raycastOrigin2, Vector2.right, playerSize.x / 2 + 0.1f, groundLayerMask);
-        Debug.DrawRay(raycastOrigin2, Vector2.right * (playerSize.y / 2 + 0.1f), Color.red);
-        if (hitHead1.collider != null)
-        {
-            canMoveRight = false;
-        }
-        Vector2 raycastOrigin3 = new Vector2(playerCollider.bounds.center.x, playerCollider.bounds.min.y);
-        RaycastHit2D hitFoot1 = Physics2D.Raycast(raycastOrigin3, Vector2.right, playerSize.x / 2 + 0.1f, groundLayerMask);
-        Debug.DrawRay(raycastOrigin3, Vector2.right * (playerSize.y / 2 + 0.1f), Color.red);
-        if (hitFoot1.collider != null)
-        {
-            canMoveRight = false;
-        }
+    }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+       canMoveRight = true;
+       canMoveLeft = true;
     }
 
 }

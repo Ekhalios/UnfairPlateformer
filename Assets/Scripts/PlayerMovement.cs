@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 playerSize;
     private Collider2D playerCollider;
     public AudioSource jumpSoundEffect;
+    public Animator animator;
 
     private void Start()
     {
@@ -49,6 +50,42 @@ public class PlayerMovement : MonoBehaviour
         HandlePlayerMovement(inputX);
         HandleJump();
         FlipSprite(inputX);
+        checkAnimator();
+    }
+
+    private void checkAnimator()
+    {
+        if (rb.velocity.x != 0 && rb.velocity.y == 0)
+        {
+            animator.SetBool("Run", true);
+            animator.SetBool("Idle", false);
+            animator.SetBool("Fall", false);
+            animator.SetBool("Jump", false);
+            animator.SetBool("Damaged", false);
+        } else if (rb.velocity.x == 0 && rb.velocity.y == 0)
+        {
+            animator.SetBool("Idle", true);
+            animator.SetBool("Run", false);
+            animator.SetBool("Fall", false);
+            animator.SetBool("Jump", false);
+            animator.SetBool("Damaged", false);
+        }
+        else if (rb.velocity.y < 0)
+        {
+            animator.SetBool("Fall", true);
+            animator.SetBool("Run", false);
+            animator.SetBool("Idle", false);
+            animator.SetBool("Jump", false);
+            animator.SetBool("Damaged", false);
+        }
+        else if (rb.velocity.y > 0)
+        {
+            animator.SetBool("Jump", true);
+            animator.SetBool("Run", false);
+            animator.SetBool("Idle", false);
+            animator.SetBool("Fall", false);
+            animator.SetBool("Damaged", false);
+        }
     }
 
     private void HandlePlayerMovement(float inputX)
@@ -84,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) && onGround)
         {
-            Debug.Log("JUUUUUUUUUUUUUUUUUUUUUMP");
             rb.velocity = new Vector2(rb.velocity.x, 10);
             jumpSoundEffect.Play();
             onGround = false;
@@ -103,12 +139,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void FlipSprite(float inputX)
     {
-        if (inputX > 0 && !reverse)
+        if (inputX > 0 && reverse)
         {
             ReverseSprite(false);
         }
 
-        if (inputX < 0 && reverse)
+        if (inputX < 0 && !reverse)
         {
             ReverseSprite(true);
         }

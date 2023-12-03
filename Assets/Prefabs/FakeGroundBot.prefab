@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e1fbc25f1570d69409262da0b3369f70, type: 3}
+  m_Sprite: {fileID: 271396880, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallingGravityScale: 10
-  editorModeSpite: {fileID: 21300000, guid: 95cb45a7fcc88fc44a780d1d2620cf39, type: 3}
-  gameModeSprite: {fileID: 21300000, guid: e1fbc25f1570d69409262da0b3369f70, type: 3}
+  editorModeSpite: {fileID: 21300000, guid: aad8f096c1d2ff14a9c3704d631d447d, type: 3}
+  gameModeSprite: {fileID: 271396880, guid: fc584d329b77b9545b9c9c8bb829e553, type: 3}
 --- !u!61 &-8544308383513302820
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MultiScene.unity
     guid: 606ea657d16099149a50e9ab58292b93
+  - enabled: 1
+    path: Assets/Scenes/Didactitiel.unity
+    guid: 2a3fcb4a682e42541ad908996d791c91
   m_configObjects: {}

@@ -38,6 +38,11 @@ public class LevelSelector : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    public void onClickDidactitiel()
+    {
+        SceneManager.LoadScene("Didactitiel");
+    }
+
     public void onClickMenu()
     {
         SceneManager.LoadScene(0);

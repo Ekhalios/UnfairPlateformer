@@ -21,16 +21,22 @@ public class PlayerDeath : MonoBehaviour
         death.color = Color.black;
     }
 
+    public void resetMap()
+    {
+        chrono.resetChrono();
+        chrono.setChrono(true);
+        mapCreator.drawMap();
+        rb.velocity = new Vector3(0, 0, 0);
+        playerMovement.switchToInitialPos();
+    }
+
     void Update()
     {
         if (transform.position.y < -10)
         {
-            numberDeath++;
-            chrono.resetChrono();
             deathSoundEffect.Play();
-            mapCreator.drawMap();
-            rb.velocity = new Vector3(0, 0, 0);
-            playerMovement.switchToInitialPos();
+            numberDeath++;
+            resetMap();
             death.text = "Death: " + numberDeath.ToString();
         }
     }
@@ -39,13 +45,20 @@ public class PlayerDeath : MonoBehaviour
     {
         if (col.gameObject.tag == "killPlayer")
         {
-            numberDeath++;
-            chrono.resetChrono();
             deathSoundEffect.Play();
-            mapCreator.drawMap();
-            rb.velocity = new Vector3(0, 0, 0);
-            playerMovement.switchToInitialPos();
+            numberDeath++;
+            resetMap();
             death.text = "Death: " + numberDeath.ToString();
         }
+    }
+
+    public void resetDeath()
+    {
+        numberDeath = 0;
+    }
+
+    public int getDeath()
+    {
+        return numberDeath;
     }
 }

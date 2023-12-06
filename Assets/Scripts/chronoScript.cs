@@ -7,6 +7,7 @@ public class chronoScript : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
     private float timer = 0f;
+    private bool chrono = true;
 
     void Start()
     {
@@ -14,7 +15,10 @@ public class chronoScript : MonoBehaviour
     }
     void Update()
     {
-        // Augmenter le temps du chronomètre
+        if (!chrono)
+        {
+            return;
+        }
         timer += Time.deltaTime;
 
         // Convertir le temps en minutes et secondes
@@ -29,5 +33,15 @@ public class chronoScript : MonoBehaviour
     public void resetChrono()
     {
         timer = 0f;
+    }
+
+    public void setChrono(bool active)
+    {
+        chrono = active;
+    }
+
+    public float getChrono()
+    {
+        return timer;
     }
 }

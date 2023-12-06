@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winSoundEffect: {fileID: -7290591033913423718}
-  creator: {fileID: 7302700884475185862, guid: c33b842cdbc716e4f937aab1a1bd5261, type: 3}
+  menuWin: {fileID: 8823542903875275726, guid: 0098f13c38735914cb7a2201d470ce9a, type: 3}
 --- !u!82 &-7290591033913423718
 AudioSource:
   m_ObjectHideFlags: 0

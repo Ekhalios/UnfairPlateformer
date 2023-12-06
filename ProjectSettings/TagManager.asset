@@ -8,6 +8,7 @@ TagManager:
   - killPlayer
   - Destroyable
   - mapCreator
+  - WinMenu
   layers:
   - Default
   - TransparentFX

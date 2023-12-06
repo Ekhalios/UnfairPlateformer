@@ -9,6 +9,7 @@ using Photon.Pun;
 using System;
 using System.Text;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public enum blocType
 {
@@ -28,6 +29,7 @@ public class MapCreator : MonoBehaviour
     public GameObject player;
     public GameObject LayerEditor;
     public GameObject LayerChooseItem;
+    public GameObject LayerMenu;
     public GameObject prefabGroundTop;
     public GameObject prefabGroundBot;
     public GameObject prefabFakeGroundBot;
@@ -453,5 +455,15 @@ public class MapCreator : MonoBehaviour
     {
         string logPath = Application.dataPath + "/log.txt";
         File.AppendAllText(logPath, message + "\n");
+    }
+
+    public void SwitchNextMap()
+    {
+        SceneManager.LoadScene(getNextScene());
+    }
+
+    public GameObject getLayerMenu()
+    {
+        return LayerMenu;
     }
 } 

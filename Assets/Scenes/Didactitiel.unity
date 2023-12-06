@@ -284,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 1add6cc11a183b64f8170838315fe4f6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 1add6cc11a183b64f8170838315fe4f6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1734,7 +1734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 1add6cc11a183b64f8170838315fe4f6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 1add6cc11a183b64f8170838315fe4f6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1955,7 +1955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2078,8 +2078,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameSceneManager, Assembly-CSharp
+      - m_Target: {fileID: 218818639}
+        m_TargetAssemblyTypeName: GameSceneManagerdidac, Assembly-CSharp
         m_MethodName: backMenu
         m_Mode: 1
         m_Arguments:
@@ -2454,7 +2454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2720,7 +2720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3371,7 +3371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3669,7 +3669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3845,7 +3845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 1add6cc11a183b64f8170838315fe4f6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 1add6cc11a183b64f8170838315fe4f6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4304,8 +4304,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameSceneManager, Assembly-CSharp
+      - m_Target: {fileID: 218818639}
+        m_TargetAssemblyTypeName: GameSceneManagerdidac, Assembly-CSharp
         m_MethodName: backGame
         m_Mode: 1
         m_Arguments:
@@ -4517,7 +4517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 953817325104415364, guid: 741104742144c8c409d399a5225ec9d9, type: 3}
       propertyPath: m_LocalRotation.w

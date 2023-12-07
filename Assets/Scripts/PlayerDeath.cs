@@ -55,6 +55,7 @@ public class PlayerDeath : MonoBehaviour
     public void resetDeath()
     {
         numberDeath = 0;
+        death.text = "Death: " + numberDeath.ToString();
     }
 
     public int getDeath()
